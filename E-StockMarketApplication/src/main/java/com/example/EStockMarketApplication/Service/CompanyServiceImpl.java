@@ -78,10 +78,9 @@ public class CompanyServiceImpl implements CompanyService{
     @Override
     public boolean deleteCompany(Long CompanyCode) {
         Optional<Company> company = companyRepository.findById(CompanyCode);
-        if (!company.isPresent())
-        {
-            throw new RuntimeException("Invalid Company Code");
-        }
+        if (company.isEmpty()) throw new CompanyNotFound("Company isn't found!");
+
+        stockPriceRepository.deleteById(company.get().getCompanyCode());
         companyRepository.deleteById(CompanyCode);
         return true;
     }

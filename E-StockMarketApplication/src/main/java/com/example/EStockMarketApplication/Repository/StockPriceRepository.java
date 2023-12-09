@@ -10,6 +10,6 @@ import java.lang.Long;
 import java.util.Optional;
 
 @Repository
-public interface StockPriceRepository extends JpaRepository<StockPrice,Integer> {
+public interface StockPriceRepository extends JpaRepository<StockPrice,Long> {
 
 }
