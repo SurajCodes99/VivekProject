@@ -23,8 +23,8 @@ public class CompanyController {
     }
 
     @GetMapping("/info/{companyCode}")
-    public ResponseEntity<Optional<Company>> getCompanyInfo(@PathVariable Long companyCode) {
-        Optional<Company> company = companyService.getCompanyByID(companyCode);
+    public ResponseEntity<Optional<CompanyResponseDTO>> getCompanyInfo(@PathVariable Long companyCode) {
+        Optional<CompanyResponseDTO> company = companyService.getCompanyByID(companyCode);
         return ResponseEntity.ok(company);
     }
 

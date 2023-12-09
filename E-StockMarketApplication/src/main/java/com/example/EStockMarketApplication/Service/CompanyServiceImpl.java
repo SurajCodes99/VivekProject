@@ -47,13 +47,13 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public Optional<Company> getCompanyByID(Long CompanyCode) {
+    public Optional<CompanyResponseDTO> getCompanyByID(Long CompanyCode) {
         Optional<Company> company=companyRepository.findById(CompanyCode);
         if(!company.isPresent())
         {
             throw new RuntimeException("Invalid Company Code");
         }
-        return company;
+        return company.map(CompanyResponseDTO::new);
     }
 
     @Override

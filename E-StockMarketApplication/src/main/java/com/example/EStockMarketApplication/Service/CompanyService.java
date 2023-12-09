@@ -11,7 +11,7 @@ public interface CompanyService {
 
     List<CompanyResponseDTO> getAllCompanies();
 
-    Optional<Company> getCompanyByID(Long CompanyCode);
+    Optional<CompanyResponseDTO> getCompanyByID(Long CompanyCode);
 
     void UpdateCompany(Long companyCode, Company company);
 
