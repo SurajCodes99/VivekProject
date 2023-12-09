@@ -1,5 +1,6 @@
 package com.example.EStockMarketApplication.Controllers;
 
+import com.example.EStockMarketApplication.DTOs.CompanyResponseDTO;
 import com.example.EStockMarketApplication.Exceptions.CompanyNotFound;
 import com.example.EStockMarketApplication.Models.Company;
 import com.example.EStockMarketApplication.Service.CompanyService;
@@ -22,14 +23,14 @@ public class CompanyController {
     }
 
     @GetMapping("/info/{companyCode}")
-    public ResponseEntity<Optional<Company>> getCompanyInfo(@PathVariable Long companyCode) {
-        Optional<Company> company = companyService.getCompanyByID(companyCode);
+    public ResponseEntity<Optional<CompanyResponseDTO>> getCompanyInfo(@PathVariable Long companyCode) {
+        Optional<CompanyResponseDTO> company = companyService.getCompanyByID(companyCode);
         return ResponseEntity.ok(company);
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.getAllCompanies();
+    public ResponseEntity<List<CompanyResponseDTO>> getAllCompanies() {
+        List<CompanyResponseDTO> companies = companyService.getAllCompanies();
         return ResponseEntity.ok(companies);
     }
 

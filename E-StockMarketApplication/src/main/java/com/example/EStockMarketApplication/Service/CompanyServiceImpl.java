@@ -1,5 +1,6 @@
 package com.example.EStockMarketApplication.Service;
 
+import com.example.EStockMarketApplication.DTOs.CompanyResponseDTO;
 import com.example.EStockMarketApplication.Exceptions.CompanyNotFound;
 import com.example.EStockMarketApplication.Exceptions.LessTurnOverException;
 import com.example.EStockMarketApplication.Models.Company;
@@ -9,6 +10,7 @@ import com.example.EStockMarketApplication.Repository.StockPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,19 +36,24 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    public List<Company> getAllCompanies() {
+    public List<CompanyResponseDTO> getAllCompanies() {
         List<Company> companies=companyRepository.findAll();
-        return companies;
+        List<CompanyResponseDTO> responseDTOs = new ArrayList<>();
+        for (Company company : companies) {
+            responseDTOs.add(new CompanyResponseDTO(company));
+        }
+
+        return responseDTOs;
     }
 
     @Override
-    public Optional<Company> getCompanyByID(Long CompanyCode) {
+    public Optional<CompanyResponseDTO> getCompanyByID(Long CompanyCode) {
         Optional<Company> company=companyRepository.findById(CompanyCode);
         if(!company.isPresent())
         {
             throw new RuntimeException("Invalid Company Code");
         }
-        return company;
+        return company.map(CompanyResponseDTO::new);
     }
 
     @Override
