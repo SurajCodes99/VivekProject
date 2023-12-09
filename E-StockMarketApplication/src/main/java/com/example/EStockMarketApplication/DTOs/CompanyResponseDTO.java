@@ -30,7 +30,7 @@ public class CompanyResponseDTO {
     }
     private StockPrice getLatestStockPrice(Company company) {
         if (company.getStockPrice() != null && !company.getStockPrice().isEmpty()) {
-            return company.getStockPrice().get(0);
+            return company.getStockPrice().get(company.getStockPrice().size()-1);
         }
         return null;
     }

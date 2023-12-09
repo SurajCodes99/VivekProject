@@ -32,9 +32,9 @@ public class StockPriceServiceImpl implements StockPriceService{
             throw new CompanyNotFound("Enter a Valid Company ID");
         }
         Company c = company.get();
+        newPrice.setCompany(c); //just needed to set the company too
         List<StockPrice> stockPrices = c.getStockPrice();
         stockPrices.add(newPrice);
         companyRepository.save(c);
-        stockPriceRepository.save(newPrice);
     }
 }
