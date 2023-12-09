@@ -13,7 +13,7 @@ import java.util.List;
 public class StockPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private Long Id;
     private BigDecimal price;
     @Column(updatable = false)
     private LocalDateTime timeStamp;
