@@ -3,7 +3,9 @@ package com.example.EStockMarketApplication.Service;
 import com.example.EStockMarketApplication.Exceptions.CompanyNotFound;
 import com.example.EStockMarketApplication.Exceptions.LessTurnOverException;
 import com.example.EStockMarketApplication.Models.Company;
+import com.example.EStockMarketApplication.Models.StockPrice;
 import com.example.EStockMarketApplication.Repository.CompanyRepository;
+import com.example.EStockMarketApplication.Repository.StockPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +14,11 @@ import java.util.Optional;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
-    private CompanyRepository companyRepository;
 
     @Autowired
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
+    private CompanyRepository companyRepository;
+    @Autowired
+    private StockPriceRepository stockPriceRepository;
 
     @Override
     public Company RegisterCompany(Company company) {
@@ -25,6 +26,8 @@ public class CompanyServiceImpl implements CompanyService{
         {
             throw new LessTurnOverException("Turnover cannot be less 10CR");
         }
+        List<StockPrice> stockPrice = company.getStockPrice();
+        stockPriceRepository.saveAll(stockPrice);
         companyRepository.save(company);
         return company;
     }

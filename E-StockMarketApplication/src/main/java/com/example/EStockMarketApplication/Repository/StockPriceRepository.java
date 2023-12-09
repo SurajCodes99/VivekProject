@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface StockPriceRepository extends JpaRepository<StockPrice,Integer> {
 
+//    List<StockPrice> findStockPricesByCompany_CompanyCodeOrderByTimeStampDesc(Long companyCode);
 }
