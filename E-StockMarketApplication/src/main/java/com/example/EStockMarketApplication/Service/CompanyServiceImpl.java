@@ -22,13 +22,14 @@ public class CompanyServiceImpl implements CompanyService{
 
     @Override
     public Company RegisterCompany(Company company) {
-        if(company.getCompanyTurnover().intValue()<100000000)
-        {
-            throw new LessTurnOverException("Turnover cannot be less 10CR");
+        if (company.getCompanyTurnover().intValue() < 100000000) {
+            throw new LessTurnOverException("Turnover cannot be less than 10CR");
         }
-        List<StockPrice> stockPrice = company.getStockPrice();
-        stockPriceRepository.saveAll(stockPrice);
         companyRepository.save(company);
+        List<StockPrice> stockPrices = company.getStockPrice();
+        stockPrices.forEach(stockPrice -> stockPrice.setCompany(company));
+        stockPriceRepository.saveAll(stockPrices);
+
         return company;
     }
 

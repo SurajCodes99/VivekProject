@@ -1,5 +1,6 @@
 package com.example.EStockMarketApplication.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,17 +24,10 @@ public class Company {
     @Column(nullable = false)
     private StockExchange stockExchange;
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<StockPrice> stockPrice=new ArrayList<>();
 
     @Transient
     private StockPrice LatestStockPrice;
 
-    public StockPrice getLatestStockPrice()
-    {
-        if(stockPrice!=null && !stockPrice.isEmpty())
-        {
-            return stockPrice.get(0);
-        }
-        return null;
-    }
 }

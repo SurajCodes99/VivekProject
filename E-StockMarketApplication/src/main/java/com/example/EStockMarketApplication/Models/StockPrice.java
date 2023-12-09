@@ -1,10 +1,12 @@
 package com.example.EStockMarketApplication.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -13,8 +15,14 @@ public class StockPrice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private BigDecimal price;
+    @Column(updatable = false)
     private LocalDateTime timeStamp;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CompanyCode" ,referencedColumnName = "CompanyCode")
+    @JsonBackReference
     private Company company;
+    @PrePersist
+    protected void onCreate() {
+        timeStamp = LocalDateTime.now();
+    }
 }
